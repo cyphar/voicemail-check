@@ -37,6 +37,21 @@ app = flask.Flask(__name__)
 app.config.from_object(__name__)
 dbfile = "acma.db"
 
+def number_cache(func):
+	pure = {}
+
+	def wrapper(number):
+		if number in pure:
+			print("[+] Cache'd that sucker! %s" % number)
+			return pure[number]
+
+		val = func(number)
+		pure[number] = val
+
+		return val
+
+	return wrapper
+
 @app.before_request
 def getdb():
 	if not getattr(flask.g, "conn", None):
@@ -57,6 +72,7 @@ def is_vuln(telco):
 	return "Optus" in telco
 
 @app.route("/api/v42/<number>")
+@number_cache
 def lookup_number(number):
 	_conn = flask.g.conn
 
