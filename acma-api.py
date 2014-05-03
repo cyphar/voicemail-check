@@ -43,7 +43,6 @@ def number_cache(func):
 
 	def wrapper(number):
 		if number in pure:
-			print("[+] Cache'd that sucker! %s" % number)
 			return pure[number]
 
 		val = func(number)
@@ -106,7 +105,7 @@ def is_vuln(telco):
 	# Well ... basically...
 	return "Optus" in telco
 
-@app.route("/api/v42/<number>")
+@app.route("/api/<number>")
 @access_control(origins="*")
 @number_cache
 def lookup_number(number):
