@@ -65,7 +65,7 @@ def access_control(origins, methods=None, max_age=21600, headers=None):
 			return methods
 
 		resp = flask.current_app.make_default_options_response()
-		return resp.headers["Allow"]
+		return resp.headers.get("Allow")
 
 	def decorator(func):
 		@functools.wraps(func)
@@ -76,8 +76,11 @@ def access_control(origins, methods=None, max_age=21600, headers=None):
 			resp = flask.make_response(func(*args, **kwargs))
 
 			resp.headers["Access-Control-Allow-Origin"] = origins
-			resp.headers["Access-Control-Allow-Methods"] = get_methods()
+
 			resp.headers["Access-Control-Max-Age"] = str(max_age)
+
+			if get_methods():
+				resp.headers["Access-Control-Allow-Methods"] = get_methods()
 
 			if headers:
 				resp.headers["Access-Control-Allow-Headers"] = headers
