@@ -115,8 +115,12 @@ def lookup_number(number):
 	cur = flask.g.conn.execute("SELECT telco FROM acma_registered WHERE number_length=? AND (? >= lower_bound AND ? <= upper_bound) LIMIT 1", (len(number), number, number))
 	row = cur.fetchone()
 
-	telco = row["telco"]
-	vuln = is_vuln(telco)
+	telco = None
+	vuln = None
+
+	if row:
+		telco = row["telco"]
+		vuln = is_vuln(telco)
 
 	out = json.dumps({
 		"code": 200,
