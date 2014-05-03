@@ -133,6 +133,10 @@ def lookup_number(number):
 
 	return flask.Response(response=out, mimetype="application/json")
 
+@app.route("/")
+def index():
+	return flask.render_template("index.html")
+
 @app.errorhandler(401)
 @app.errorhandler(403)
 @app.errorhandler(404)

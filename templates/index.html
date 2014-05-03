@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+	.container {
+		width: 80%;
+		text-align: center;
+	}
+
+	.inner {
+		margin: auto;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 240px;
+		width: 80%;
+	}
+
+	input#number {
+		color: black !important;
+		text-align: center;
+		width: 100%;
+		font-size: 18px;
+	}
+
+	button#check {
+		margin: 10px;
+		font-size: 18px;
+	}
+
+	div#output {
+		margin: 10px;
+
+		display: none;
+		font-family: monospace;
+		font-size: 20px;
+		width: 100%;
+	}
+
+	.error {
+		background-color: black;
+		color: white;
+	}
+
+	.bad {
+		background-color: red;
+		color: white;
+	}
+
+	.good {
+		background-color: #467408;
+		color: white;
+	}
+</style>
+
+<link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/bootstrap.min.css") }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/bootstrap-theme.min.css") }}" />
+
+<script type="text/javascript" src="{{ url_for("static", filename="js/jquery.min.js") }}"></script>
+<script type="text/javascript" src="{{ url_for("static", filename="js/bootstrap.min.js") }}"></script>
+
+<script type="text/javascript">
+	$(document).ready(function ()  {
+		console.log("what the fuck")
+		$("#check").click(function () {
+			var mobilenumber = $("#number").val();
+
+			var request = $.ajax({
+				crossDomain: true,
+				dataType: "text",
+				url: "https://scripts.cyphar.com/voicemail/api/" + mobilenumber,
+			});
+
+			request.done(function (data) {
+				var resp = $.parseJSON(data);
+
+				var isvuln = resp.body.vulnerable;
+				var telco = resp.body.telco;
+
+				console.log("JSON: " + data)
+				console.log("Data: " + isvuln + " Telco: " + telco);
+
+				if(isvuln === null || telco === null) {
+					$("#output").text("Cannot find phone number")
+								.show();
+
+					$("body").removeClass("bad good")
+							.addClass("error");
+					return
+				}
+
+				if(isvuln === true) {
+					$("#output").text("Vulnerable: " + telco)
+								.show();
+
+					$("body").removeClass("error good")
+							.addClass("bad");
+				} else {
+					$("#output").text("Not Vulnerable: " + telco)
+								.show();
+
+					$("body").removeClass("error bad")
+							.addClass("good");
+				}
+			});
+
+			request.fail(function (_, textstatus) {
+				console.log("Error! " + textstatus);
+			});
+		});
+	});
+</script>
+
+</head>
+<body>
+<div class="container">
+	<div class="inner">
+		<input id="number" placeholder="Phone number"/>
+		<button id="check" class="btn btn-default">Check Phone Number</button>
+
+		<div id="output"></div>
+	</div>
+</div>
+</body>
+</html>
