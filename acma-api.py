@@ -119,9 +119,12 @@ def lookup_number(number):
 	vuln = is_vuln(telco)
 
 	out = json.dumps({
-		"number": number,
-		"telco": telco,
-		"vulnerable": vuln
+		"code": 200,
+		"body": {
+			"number": number,
+			"telco": telco,
+			"vulnerable": vuln
+		}
 	})
 
 	return flask.Response(response=out, mimetype="application/json")
@@ -132,12 +135,15 @@ def lookup_number(number):
 @app.errorhandler(410)
 @app.errorhandler(500)
 @access_control(origins="*")
-def what(e):
+def what(exception):
 	out = json.dumps({
-		"message": "what?"
+		"code": exception.code,
+		"body": {
+			"message": "what?"
+		}
 	})
 
-	return flask.Response(response=out, mimetype="application/json")
+	return flask.Response(response=out, mimetype="application/json", status=exception.code)
 
 def run_server(host, port, debug=False):
 	app.debug = debug
