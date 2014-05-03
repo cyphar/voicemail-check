@@ -18,13 +18,13 @@ $ ./acma-api.py [-H host] [-p port] [-D]
 To access the API, navigate to this URL:
 
 ```
-http://<host>:<port>/api/v42/<number>
+http://<host>:<port>/api/<number>
 ```
 
 You'll get a response like this:
 
 ```
-{"telco": <the telco>, "number": <number>, "vulnerable": <is it vulnerable?>}
+{"code": 200, "body": {"telco": <the telco>, "number": <number>, "vulnerable": <is it vulnerable?>}}
 ```
 
 ... or the world will explode. Who knows?

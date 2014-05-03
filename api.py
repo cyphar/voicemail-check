@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# acma-api: finds the telco for a number (and tells you if it is vuln to voicemail attacks)
+# acma: finds the telco for a number (and tells you if it is vuln to voicemail attacks)
 # Copyright (C) 2014, Cyphar All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without

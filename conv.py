@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# acmaconv: convert acma csv data to an sqlite3 db
+# acma: finds the telco for a number (and tells you if it is vuln to voicemail attacks)
 # Copyright (C) 2014, Cyphar All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without

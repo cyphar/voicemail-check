@@ -3,7 +3,7 @@
 # Based on ubuntu 14.04                     #
 #############################################
 
-# acma-api: finds the telco for a number (and tells you if it is vuln to voicemail attacks)
+# acma: finds the telco for a number (and tells you if it is vuln to voicemail attacks)
 # Copyright (C) 2014, Cyphar All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -62,8 +62,8 @@ ADD . /srv/www
 
 # Generate database
 RUN tar xvfz data.tar.gz
-RUN python3 acma-conv.py data.csv -d /srv/db/acma.db
+RUN python3 conv.py data.csv -d /srv/db/acma.db
 
 # Set up ACMA API and port config.
 EXPOSE 80
-CMD ["python3", "acma-api.py", "-H0.0.0.0", "-p80", "-d", "/srv/db/acma.db"]
+CMD ["python3", "api.py", "-H0.0.0.0", "-p80", "-d", "/srv/db/acma.db"]
