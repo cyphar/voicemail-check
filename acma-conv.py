@@ -85,9 +85,7 @@ def main():
 		for csv_fname in csv_files:
 			with open(csv_fname, newline="") as f:
 				reader = csv.DictReader(f)
-				rows = [row for row in reader]
-
-				for row in rows:
+				for row in reader:
 					ins = "INSERT INTO acma_registered (lower_bound, upper_bound, number_length, allocatee, telco, service) VALUES (?, ?, ?, ?, ?, ?)"
 					conn.execute(ins, (row["From"], row["To"], row["Number Length"], row["Allocatee"], row["Latest Holder"], row["Service Type"]))
 
