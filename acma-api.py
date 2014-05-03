@@ -110,9 +110,7 @@ def is_vuln(telco):
 @access_control(origins="*")
 @number_cache
 def lookup_number(number):
-	_conn = flask.g.conn
-
-	cur = _conn.execute("SELECT telco FROM acma_registered WHERE number_length=? AND (? >= lower_bound AND ? <= upper_bound) LIMIT 1", (len(number), number, number))
+	cur = flask.g.conn.execute("SELECT telco FROM acma_registered WHERE number_length=? AND (? >= lower_bound AND ? <= upper_bound) LIMIT 1", (len(number), number, number))
 	row = cur.fetchone()
 
 	telco = row["telco"]
