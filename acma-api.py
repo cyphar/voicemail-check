@@ -143,10 +143,12 @@ def run_server(host, port, debug=False):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Runs the magical ACMA API for shits and giggles.")
+	parser.add_argument("-d", "--dbfile", type=str, default="acma.db")
 	parser.add_argument("-D", "--debug", action="store_true", help="Debugging intensifies.")
 	parser.add_argument("-H", "--host", type=str, default="0.0.0.0")
 	parser.add_argument("-p", "--port", type=int, default=8888)
 
 	args = parser.parse_args()
 
+	dbfile = args.dbfile
 	run_server(args.host, args.port, args.debug)
