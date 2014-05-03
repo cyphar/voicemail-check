@@ -31,6 +31,7 @@
 import argparse
 import sqlite3
 import flask
+import functools
 import json
 
 app = flask.Flask(__name__)
@@ -52,6 +53,40 @@ def number_cache(func):
 
 	return wrapper
 
+def access_control(origins, methods=None, max_age=21600, headers=None):
+	if methods:
+		methods = ",".join(methods)
+	if headers:
+		headers = ",".join(headers)
+	if not isinstance(origins, str):
+		origins = ",".join(origins)
+
+	def get_methods():
+		if methods is not None:
+			return methods
+
+		resp = flask.current_app.make_default_options_response()
+		return resp.headers["Allow"]
+
+	def decorator(func):
+		@functools.wraps(func)
+		def wrapper(*args, **kwargs):
+			if flask.request.method == "OPTIONS":
+				return flask.current_app.make_default_options_response()
+
+			resp = flask.make_response(func(*args, **kwargs))
+
+			resp.headers["Access-Control-Allow-Origin"] = origins
+			resp.headers["Access-Control-Allow-Methods"] = get_methods()
+			resp.headers["Access-Control-Max-Age"] = str(max_age)
+
+			if headers:
+				resp.headers["Access-Control-Allow-Headers"] = headers
+
+			return resp
+		return wrapper
+	return decorator
+
 @app.before_request
 def getdb():
 	if not getattr(flask.g, "conn", None):
@@ -72,6 +107,7 @@ def is_vuln(telco):
 	return "Optus" in telco
 
 @app.route("/api/v42/<number>")
+@access_control(origins="*")
 @number_cache
 def lookup_number(number):
 	_conn = flask.g.conn
@@ -95,6 +131,7 @@ def lookup_number(number):
 @app.errorhandler(404)
 @app.errorhandler(410)
 @app.errorhandler(500)
+@access_control(origins="*")
 def what(e):
 	out = json.dumps({
 		"message": "what?"
