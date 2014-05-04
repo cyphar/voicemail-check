@@ -14,11 +14,19 @@
 <body>
 <div class="container">
 	<div class="inner">
+		<h2 id="output">Check if your voicemail is vulnerable.</h2>
 		<input id="number" class="form-control input-lg" placeholder="Phone number (e.g. 04XXXXXXXX)"/>
 		<button id="check" class="btn btn-default">Check Phone Number</button>
-
-		<div id="output"></div>
 	</div>
 </div>
+<footer>
+	<p class="mini">This tool only works if you <b>have not</b> transferred your number to another carrier (and your phone number and carrier are Australian).<br/>
+	If you have transferred your number, the only sure-fire way of checking if you're vulnerable is to call this number: <b>1800 80 1920</b>.
+	If you are told the carrier is <b>"Optus"</b>, then you are vulnerable.</p>
+
+	{# TODO: Add this:
+	<p class="mini">Copyright &copy; 2014 Cyphar. This project is licensed under the BSD license. <a href="https://gist.github.com/cyphar/68642617f29fb9004a55">Source code</a>.<p>
+	#}
+</footer>
 </body>
 </html>

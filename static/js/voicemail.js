@@ -7,8 +7,7 @@ $(document).ready(function ()  {
 			dataType: "text",
 			url: "https://scripts.cyphar.com/voicemail/api/" + mobilenumber,
 			beforeSend: (function (xhr) {
-				$("#output").text("")
-							.hide();
+				$("#output").text("Checking number ...")
 
 				$("body").removeClass("good bad error");
 			}),
@@ -21,8 +20,7 @@ $(document).ready(function ()  {
 			var telco = resp.body.telco;
 
 			if(isvuln === null || telco === null) {
-				$("#output").text("Cannot find phone number")
-							.show();
+				$("#output").text("Cannot find phone number.");
 
 				$("body").removeClass("bad good")
 						.addClass("error");
@@ -30,14 +28,12 @@ $(document).ready(function ()  {
 			}
 
 			if(isvuln === true) {
-				$("#output").text("Vulnerable: " + telco)
-							.show();
+				$("#output").text("Vulnerable: " + telco + ".");
 
 				$("body").removeClass("error good")
 						.addClass("bad");
 			} else {
-				$("#output").text("Not Vulnerable: " + telco)
-							.show();
+				$("#output").text("Not vulnerable: " + telco + ".");
 
 				$("body").removeClass("error bad")
 						.addClass("good");
@@ -45,7 +41,7 @@ $(document).ready(function ()  {
 		});
 
 		request.fail(function (_, textstatus) {
-			console.log("Error! " + textstatus);
+			$("#output").text("An unknown error occured.")
 		});
 	});
 
