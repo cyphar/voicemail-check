@@ -1,0 +1,51 @@
+.container {
+	width: 80%;
+	text-align: center;
+}
+
+.inner {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 240px;
+	width: 80%;
+}
+
+input#number {
+	color: black !important;
+	text-align: center;
+	width: 100%;
+	font-size: 18px;
+}
+
+button#check {
+	margin: 10px;
+	font-size: 18px;
+}
+
+div#output {
+	margin: 10px;
+
+	display: none;
+	font-family: monospace;
+	font-size: 20px;
+	width: 100%;
+}
+
+.error {
+	background-color: #070e74;
+	color: white;
+}
+
+.bad {
+	background-color: #74070e;
+	color: white;
+}
+
+.good {
+	background-color: #0f7407;
+	color: white;
+}
