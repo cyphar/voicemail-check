@@ -115,6 +115,12 @@
 				console.log("Error! " + textstatus);
 			});
 		});
+
+		$("#number").keyup(function (e) {
+			if(e.keyCode == 13) {
+				$("#check").trigger("click");
+			}
+		});
 	});
 </script>
 
@@ -122,7 +128,7 @@
 <body>
 <div class="container">
 	<div class="inner">
-		<input id="number" placeholder="Phone number"/>
+		<input id="number" class="form-control input-lg" placeholder="Phone number (e.g. 04XXXXXXXX)"/>
 		<button id="check" class="btn btn-default">Check Phone Number</button>
 
 		<div id="output"></div>
