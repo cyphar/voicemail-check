@@ -63,7 +63,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function ()  {
-		console.log("what the fuck")
 		$("#check").click(function () {
 			var mobilenumber = $("#number").val();
 
@@ -71,6 +70,12 @@
 				crossDomain: true,
 				dataType: "text",
 				url: "https://scripts.cyphar.com/voicemail/api/" + mobilenumber,
+				beforeSend: (function (xhr) {
+					$("#output").text("")
+								.hide();
+
+					$("body").removeClass("good bad error");
+				}),
 			});
 
 			request.done(function (data) {
