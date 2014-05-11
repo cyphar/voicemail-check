@@ -1,7 +1,7 @@
 Acma API
 ========
 
-Because Fuck Logic. ;)
+A simple web app to check if your (Australian) voicemail is vulnerable to information disclosure.
 
 ### Usage ###
 For maximum hackerage:
@@ -28,3 +28,8 @@ You'll get a response like this:
 ```
 
 ... or the world will explode. Who knows?
+
+### Data Integrity ###
+The [data](data.csv) used for this project is provided by ACMA, and no
+guarantees are made for the integrity of the data provided (except any which
+are provided by ACMA)
