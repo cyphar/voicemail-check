@@ -57,12 +57,12 @@ $(document).ready(function ()  {
 			}
 
 			if(isvuln === true) {
-				$("#output").text("Vulnerable: " + telco + ".");
+				$("#output").text("Was Vulnerable: " + telco + ".");
 
 				$("body").removeClass("error good")
 						.addClass("bad");
 			} else {
-				$("#output").text("Not vulnerable: " + telco + ".");
+				$("#output").text("Wasn't vulnerable: " + telco + ".");
 
 				$("body").removeClass("error bad")
 						.addClass("good");
