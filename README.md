@@ -1,8 +1,8 @@
-Acma API
-========
+Optus Voicemail Check
+=====================
 
 A simple web app to check if your (Australian) voicemail is vulnerable to information disclosure.
-For more information, see [this article](http://shubh.am/how-i-bypassed-2-factor-authentication-on-google-yahoo-linkedin-and-many-others/)
+For more information, see [this article](http://shubh.am/how-i-bypassed-2-factor-authentication-on-google-yahoo-linkedin-and-many-others/).
 
 ### Usage ###
 For maximum hackerage:
