@@ -34,36 +34,33 @@
 FROM ubuntu:14.04
 MAINTAINER "cyphar <cyphar@cyphar.com>"
 
-##################
-# Update server. #
-##################
-
 # Make sure the repos and packages are up to date
 RUN apt-get update
 RUN apt-get upgrade -y
 
-#########################################
-# Install ACMA API server dependencies. #
-#########################################
-
 # Install python3 and flask.
 RUN apt-get install -y python3 python3-flask
 
-###################################
-# Install and configure ACMA API. #
-###################################
-
 # Set up ACMA API server directory.
-RUN mkdir -p /srv/www /srv/db
+RUN mkdir -p -- /srv/db /srv/www
 WORKDIR /srv/www
 
+# Set up server user.
+RUN useradd -U -M -s /bin/nologin -- drone
+RUN passwd -d -- drone
+
+# Change ownership.
+RUN chown drone:drone -- /srv/www /srv/db
+USER drone
+
 # Copy over the ACMA API app source.
-ADD . /srv/www
+COPY . /srv/www
 
 # Generate database
 RUN tar xvfz data.tar.gz
 RUN python3 conv.py data.csv -d /srv/db/acma.db
 
 # Set up ACMA API and port config.
-EXPOSE 80
-CMD ["python3", "api.py", "-H0.0.0.0", "-p80", "-d", "/srv/db/acma.db"]
+EXPOSE 5000
+ENTRYPOINT ["python3", "api.py", "-H0.0.0.0", "-p5000"]
+CMD ["-d/srv/db/acma.db"]
