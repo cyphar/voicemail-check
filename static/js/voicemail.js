@@ -50,22 +50,16 @@ $(document).ready(function ()  {
 
 			if(isvuln === null || telco === null) {
 				$("#output").text("Cannot find phone number.");
-
-				$("body").removeClass("bad good")
-						.addClass("error");
+				$("body").removeClass("bad good").addClass("error");
 				return
 			}
 
 			if(isvuln === true) {
-				$("#output").text("Was Vulnerable: " + telco + ".");
-
-				$("body").removeClass("error good")
-						.addClass("bad");
+				$("#output").text("Was vulnerable: " + telco + ".");
+				$("body").removeClass("error good").addClass("bad");
 			} else {
 				$("#output").text("Wasn't vulnerable: " + telco + ".");
-
-				$("body").removeClass("error bad")
-						.addClass("good");
+				$("body").removeClass("error bad").addClass("good");
 			}
 		});
 
